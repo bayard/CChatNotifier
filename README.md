@@ -38,3 +38,7 @@ Not tested in classic yet, notification sound probably throws an error, settings
 ========
 2020.05.04 支持 Global Ignore List
 
+List location:
+GlobalIgnoreList.lua / GlobalIgnoreDB / ignoreList
+
+
