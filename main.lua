@@ -268,6 +268,8 @@ end
 -- @param channelName If source is CHANNEL this is the channel name
 local function SearchMessage(msg, from, source, guid)
 
+    local from_with_realm = '-'..GetRealmName();
+
     local msglow = string.lower(msg);
     if ShouldBlock(msglow) then return end
     local fstart, fend;
@@ -276,7 +278,7 @@ local function SearchMessage(msg, from, source, guid)
             for word, search in pairs(data.words) do
                 fstart, fend = _hfind(msglow, search);
                 if fstart ~= nil then
-                    if GlobalIgnoreDB and has_value(GlobalIgnoreDB.ignoreList, from)  then 
+                    if GlobalIgnoreDB and has_value(GlobalIgnoreDB.ignoreList, from_with_realm)  then 
                         print("error : ignorelist ignored")
                     end
                     local nameNoDash = RemoveServerDash(from);
