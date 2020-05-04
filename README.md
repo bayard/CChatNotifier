@@ -34,3 +34,7 @@ Not tested in classic yet, notification sound probably throws an error, settings
     * 以上字段,可以用逗号隔开 编成一组, 就是图中插件界面上的一行, 受同一组功能按钮的控制(添加,编辑,删除,暂停和启用)
 
 [NGA贴子](https://bbs.nga.cn/read.php?&tid=18499801)
+
+========
+2020.05.04 支持 Global Ignore List
+
