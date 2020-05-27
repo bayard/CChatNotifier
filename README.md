@@ -42,3 +42,5 @@ List location:
 GlobalIgnoreList.lua / GlobalIgnoreDB / ignoreList
 
 - ![Acamar, 49 parsecs away from the sun](https://via.placeholder.com/15/Acamar%2C%2049%20parsecs%20away%20from%20the%20sun/000000?text=+) `Acamar, 49 parsecs away from the sun`
+
+<sub><sup>Small text</sup></sub>
