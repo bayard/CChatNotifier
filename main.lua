@@ -271,6 +271,21 @@ local function SearchMessage(msg, from, source, guid)
     -- local from_with_realm = from..'-'..GetRealmName();
     -- print('FROM:'..from)
 
+    -- acamar addon API
+    local acamar_api = _G["AcamarAPIHelper"]
+    if acamar_api ~= nil then
+        -- blocked: If the player with guid should be blocked.
+        -- spamscore: The spam score of the player. The greater, the player's 
+        -- behavior is more like a bot. Normally you don't need to use score unless 
+        -- you want to classified spam players into more specific groups. 1 is good
+        -- in most circumstances.
+        local blocked, spamscore = acamar_api:IsBlock(guid)
+        if blocked then
+            --print("BLOCKED BY acamar:" .. from)
+            return
+        end
+    end
+
     local msglow = string.lower(msg);
     if ShouldBlock(msglow) then return end
     local fstart, fend;
