@@ -202,11 +202,11 @@ end
 --- Remove server names from names given as "Character-Servername"
 -- @param name The name to remove the dash server part from
 local function RemoveServerDash(name)
-	local dash = name:find("-");
+    local dash = name:find("-");
     if dash then 
         return name:sub(1, dash-1); 
     end
-	return name;
+    return name;
 end
 
 ---- { Support for multiple-inclusive search and simple blocker(by hkhuang)
@@ -260,6 +260,15 @@ local function has_value (tab, v)
     return false
 end
 
+
+local function RemoveServerDash(name)
+    local dash = name:find("-");
+    if dash then 
+        return name:sub(1, dash-1); 
+    end
+    return name;
+end
+
 --- Search message for searched terms
 -- If one is found then trigger notification.
 -- @param msg The message to search in
@@ -282,6 +291,13 @@ local function SearchMessage(msg, from, source, guid)
         local blocked, spamscore = acamar_api:IsBlock(guid)
         if blocked then
             --print("BLOCKED BY acamar:" .. from)
+            return
+        end
+
+        local shortname = RemoveServerDash(from)
+        local bl = acamar_api:IsBL(shortname)
+        if bl then
+            --print("Blacklisted BY acamar:" .. shortname)
             return
         end
     end
@@ -348,7 +364,7 @@ function handlers.ADDON_LOADED(addonName)
     if addonName ~= _addonName then 
         return; 
     end
-	frame:UnregisterEvent("ADDON_LOADED");
+    frame:UnregisterEvent("ADDON_LOADED");
     _addon:SetupSettings();
     _addon:MainUI_UpdateList();
     UpdateAddonState();
@@ -362,19 +378,19 @@ function handlers.ADDON_LOADED(addonName)
 end
 
 function handlers.CHAT_MSG_CHANNEL(text, playerName, _, channelName, _, _, _, _, _, _, _, guid)
-	SearchMessage(text, playerName, channelName, guid);
+    SearchMessage(text, playerName, channelName, guid);
 end
 
 function handlers.CHAT_MSG_SAY(text, playerName,  _, _, _, _, _, _, _, _, _, guid)
-	SearchMessage(text, playerName, L["VICINITY"]);
+    SearchMessage(text, playerName, L["VICINITY"]);
 end
 
 function handlers.CHAT_MSG_YELL(text, playerName,  _, _, _, _, _, _, _, _, _, guid)
-	SearchMessage(text, playerName, L["VICINITY"]);
+    SearchMessage(text, playerName, L["VICINITY"]);
 end
 
 frame:SetScript( "OnEvent",function(self, event, ...) 
-	handlers[event](...);
+    handlers[event](...);
 end)
 
 frame:RegisterEvent("ADDON_LOADED");
